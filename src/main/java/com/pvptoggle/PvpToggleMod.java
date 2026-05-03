@@ -16,13 +16,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-/**
- * PvpToggle - Minecraft 1.21.11 Fabric Mod (Yarn Mappings)
- *
- * Press RIGHT SHIFT to toggle:
- *   ON  -> view bobbing off, hit tilt off, non-vanilla/fullbright packs disabled
- *   OFF -> view bobbing on, hit tilt on
- */
 public class PvpToggleMod implements ClientModInitializer {
 
     public static final String MOD_ID = "pvptoggle";
@@ -42,9 +35,8 @@ public class PvpToggleMod implements ClientModInitializer {
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             if (client.player == null || client.currentScreen != null) return;
 
-            // Use InputUtil for key detection - works reliably in Fabric
             boolean isRightShiftPressed = InputUtil.isKeyPressed(
-                client.getWindow().getHandle(),
+                client.getWindow(),
                 GLFW.GLFW_KEY_RIGHT_SHIFT
             );
 
@@ -61,9 +53,8 @@ public class PvpToggleMod implements ClientModInitializer {
         GameOptions options = client.options;
 
         if (pvpModeEnabled) {
-            // PVP MODE ON
             options.getBobView().setValue(false);
-            options.getDamageTiltStrength().setValue(false);
+            options.getDamageTiltStrength().setValue(0.0D);
             disableNonVanillaPacks(client);
             LOGGER.info("[PvpToggle] PvP Mode ENABLED");
             client.player.sendMessage(
@@ -71,9 +62,8 @@ public class PvpToggleMod implements ClientModInitializer {
                 true
             );
         } else {
-            // PVP MODE OFF
             options.getBobView().setValue(true);
-            options.getDamageTiltStrength().setValue(true);
+            options.getDamageTiltStrength().setValue(1.0D);
             LOGGER.info("[PvpToggle] PvP Mode DISABLED");
             client.player.sendMessage(
                 Text.literal("§a[PvpToggle] §fPvP Mode: §cOFF §7(bobbing on, hit tilt on)"),
@@ -104,7 +94,6 @@ public class PvpToggleMod implements ClientModInitializer {
 
             if (isVanillaOrBuiltin || isFullbright) {
                 toKeep.add(id);
-                LOGGER.info("[PvpToggle] Keeping pack: {}", id);
             } else {
                 LOGGER.info("[PvpToggle] Disabling pack: {}", id);
             }
