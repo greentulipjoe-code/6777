@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "id": "pvptoggle",
+  "version": "1.0.0",
+  "name": "PvpToggle",
+  "description": "Press Right Shift to toggle PvP mode: disables view bobbing, hit tilt, and non-vanilla/fullbright resource packs.",
+  "authors": ["You"],
+  "contact": {},
+  "license": "MIT",
+  "environment": "client",
+  "entrypoints": {
+    "client": [
+      "com.pvptoggle.PvpToggleMod"
+    ]
+  },
+  "mixins": [],
+  "depends": {
+    "fabricloader": ">=0.15.0",
+    "fabric-api": "*",
+    "minecraft": "~1.21.11",
+    "java": ">=21"
+  }
+}
