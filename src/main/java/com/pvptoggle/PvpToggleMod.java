@@ -4,7 +4,7 @@ import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.option.GameOptions;
-import net.minecraft.client.resource.ResourcePackManager;
+import net.minecraft.resource.ResourcePackManager;
 import net.minecraft.resource.ResourcePackProfile;
 import net.minecraft.text.Text;
 import net.minecraft.client.util.InputUtil;
@@ -63,7 +63,7 @@ public class PvpToggleMod implements ClientModInitializer {
         if (pvpModeEnabled) {
             // PVP MODE ON
             options.getBobView().setValue(false);
-            options.getDamageTilt().setValue(false);
+            options.getDamageTiltStrength().setValue(false);
             disableNonVanillaPacks(client);
             LOGGER.info("[PvpToggle] PvP Mode ENABLED");
             client.player.sendMessage(
@@ -73,7 +73,7 @@ public class PvpToggleMod implements ClientModInitializer {
         } else {
             // PVP MODE OFF
             options.getBobView().setValue(true);
-            options.getDamageTilt().setValue(true);
+            options.getDamageTiltStrength().setValue(true);
             LOGGER.info("[PvpToggle] PvP Mode DISABLED");
             client.player.sendMessage(
                 Text.literal("§a[PvpToggle] §fPvP Mode: §cOFF §7(bobbing on, hit tilt on)"),
